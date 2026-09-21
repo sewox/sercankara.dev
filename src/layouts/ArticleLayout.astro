@@ -1,0 +1,91 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  readingTime?: string;
+}
+
+const { title, description, pubDate, updatedDate, tags = [], readingTime } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+}).format(pubDate);
+
+const formattedUpdatedDate = updatedDate
+  ? new Intl.DateTimeFormat('en-GB', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    }).format(updatedDate)
+  : undefined;
+---
+
+<BaseLayout title={title} description={description} articleDate={pubDate.toISOString()}>
+  <article class="max-w-none">
+    <!-- Back Navigation -->
+    <div class="mb-8">
+      <a
+        href="/thoughts"
+        class="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+      >
+        <span>&larr;</span>
+        <span>Back to thoughts</span>
+      </a>
+    </div>
+
+    <!-- Article Header -->
+    <header class="mb-10 pb-8 border-b border-neutral-200/70 dark:border-neutral-800/70">
+      <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-400 dark:text-neutral-500 mb-3">
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+        {formattedUpdatedDate && <span>(Updated: {formattedUpdatedDate})</span>}
+        {readingTime && <span>&bull;</span> <span>{readingTime}</span>}
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 leading-tight">
+        {title}
+      </h1>
+
+      {
+        description && (
+          <p class="mt-3 text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            {description}
+          </p>
+        )
+      }
+
+      {
+        tags.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Article Content -->
+    <div class="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-neutral-900 dark:prose-a:text-neutral-100 prose-pre:bg-neutral-900 dark:prose-pre:bg-neutral-900/80 prose-pre:border prose-pre:border-neutral-800">
+      <slot />
+    </div>
+
+    <!-- Article Footer / Navigation -->
+    <footer class="mt-14 pt-8 border-t border-neutral-200/70 dark:border-neutral-800/70 flex justify-between items-center text-xs font-mono text-neutral-500 dark:text-neutral-400">
+      <a href="/thoughts" class="hover:underline">
+        &larr; All articles
+      </a>
+      <a href={`https://twitter.com/intent/tweet?text=Reading%20${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener noreferrer" class="hover:underline">
+        Discuss on X ↗
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

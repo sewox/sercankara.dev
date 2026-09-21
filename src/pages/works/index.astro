@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+
+const categories = ['Infrastructure', 'API Service', 'SaaS Platform', 'Open Source'] as const;
+---
+
+<BaseLayout
+  title="Works & Systems"
+  description="Production systems, log engines, enterprise APIs, and open-source tools architected by Sercan Kara."
+>
+  <header class="mb-12">
+    <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 mb-3">
+      Works & Systems
+    </h1>
+    <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+      A selected index of platforms, distributed engines, and backend libraries.
+      Each system represents a focus on fault tolerance, zero-overhead execution, and maintainability.
+    </p>
+  </header>
+
+  <div class="space-y-12">
+    {
+      categories.map((category) => {
+        const categoryProjects = projects.filter((p) => p.category === category);
+        if (categoryProjects.length === 0) return null;
+
+        return (
+          <section>
+            <div class="flex items-center justify-between mb-4 pb-2 border-b border-neutral-200/60 dark:border-neutral-800/60">
+              <h2 class="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+                {category}
+              </h2>
+              <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                {categoryProjects.length} {categoryProjects.length === 1 ? 'project' : 'projects'}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+              {categoryProjects.map((project) => (
+                <ProjectCard project={project} />
+              ))}
+            </div>
+          </section>
+        );
+      })
+    }
+  </div>
+</BaseLayout>

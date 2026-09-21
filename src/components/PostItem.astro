@@ -1,0 +1,74 @@
+---
+import type { UnifiedPost } from '../lib/posts';
+
+interface Props {
+  post: UnifiedPost;
+}
+
+const { post } = Astro.props;
+
+// Format date: e.g. "02 Sep, 2026"
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+}).format(post.pubDate);
+---
+
+<article class="group py-4 border-b border-neutral-100 dark:border-neutral-800/40 last:border-none">
+  <a
+    href={post.url}
+    target={post.isExternal ? '_blank' : '_self'}
+    rel={post.isExternal ? 'noopener noreferrer' : undefined}
+    class="block focus:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-sm"
+  >
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
+      <!-- Title & External Arrow -->
+      <h3 class="text-[0.98rem] font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors flex items-center gap-1.5">
+        <span>{post.title}</span>
+        {
+          post.isExternal && (
+            <span class="inline-block text-neutral-400 dark:text-neutral-500 font-normal text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              ↗
+            </span>
+          )
+        }
+      </h3>
+
+      <!-- Date & Source Meta -->
+      <div class="flex items-center gap-2 text-xs font-mono text-neutral-400 dark:text-neutral-500 shrink-0">
+        {
+          post.isExternal && (
+            <span class="px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">
+              Medium
+            </span>
+          )
+        }
+        <time datetime={post.pubDate.toISOString()}>{formattedDate}</time>
+      </div>
+    </div>
+
+    <!-- Snippet / Description -->
+    {
+      post.description && (
+        <p class="mt-1.5 text-xs sm:text-[0.875rem] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed font-normal">
+          {post.description}
+        </p>
+      )
+    }
+
+    <!-- Tags / Reading Time -->
+    <div class="mt-2 flex items-center gap-3 text-[11px] font-mono text-neutral-400 dark:text-neutral-500">
+      {post.readingTime && <span>{post.readingTime}</span>}
+      {
+        post.tags && post.tags.length > 0 && (
+          <div class="flex items-center gap-1.5">
+            {post.tags.slice(0, 3).map((tag) => (
+              <span class="text-neutral-400 dark:text-neutral-600">#{tag.toLowerCase()}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </a>
+</article>

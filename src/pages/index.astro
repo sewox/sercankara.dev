@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostItem from '../components/PostItem.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getAllPosts } from '../lib/posts';
+import { projects } from '../data/projects';
+
+// Fetch unified thoughts (Local + Medium), take recent 4
+const allPosts = await getAllPosts();
+const recentPosts = allPosts.slice(0, 4);
+
+// Filter featured projects
+const featuredProjects = projects.filter((p) => p.featured);
+---
+
+<BaseLayout>
+  <!-- Hero Section (Editorial / Kyoto style) -->
+  <section class="mb-14 sm:mb-16">
+    <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 mb-4">
+      Sercan Kara
+    </h1>
+    <p class="text-base sm:text-[1.05rem] text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal max-w-2xl">
+      Senior Backend Architect & Systems Engineer crafting distributed runtimes,
+      high-throughput log engines, and resilient cloud infrastructure. Currently exploring
+      concurrency primitives in Go, asynchronous PHP engines, and low-latency data pipelines.
+    </p>
+
+    <!-- Quick Status / Coordinates -->
+    <div class="mt-5 flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-400 dark:text-neutral-500">
+      <span class="inline-flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        Available for architectural consulting
+      </span>
+      <span>&bull;</span>
+      <span>Istanbul, TR (UTC+3)</span>
+    </div>
+  </section>
+
+  <!-- Recent Thoughts Section -->
+  <section class="mb-16">
+    <div class="flex items-baseline justify-between mb-6 pb-2 border-b border-neutral-200/80 dark:border-neutral-800/80">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+        Selected Thoughts & Writing
+      </h2>
+      <a
+        href="/thoughts"
+        class="text-xs font-mono text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors flex items-center gap-1"
+      >
+        <span>View all ({allPosts.length})</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+    <div class="divide-y divide-neutral-100 dark:divide-neutral-800/50">
+      {
+        recentPosts.map((post) => (
+          <PostItem post={post} />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Featured Works Section -->
+  <section>
+    <div class="flex items-baseline justify-between mb-6 pb-2 border-b border-neutral-200/80 dark:border-neutral-800/80">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+        Selected Works & Systems
+      </h2>
+      <a
+        href="/works"
+        class="text-xs font-mono text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors flex items-center gap-1"
+      >
+        <span>All projects</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4">
+      {
+        featuredProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

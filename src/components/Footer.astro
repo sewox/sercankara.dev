@@ -1,0 +1,34 @@
+---
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/sewox' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/sercankara' },
+  { label: 'Medium', href: 'https://medium.com/@sewox' },
+  { label: 'X', href: 'https://x.com/sewox' },
+  { label: 'RSS', href: '/rss.xml' },
+];
+---
+
+<footer class="mt-auto pt-16 pb-12 border-t border-neutral-200/60 dark:border-neutral-800/60 text-xs text-neutral-500 dark:text-neutral-500">
+  <div class="max-w-3xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <span>&copy; {currentYear} Sercan Kara.</span>
+    </div>
+
+    <div class="flex items-center gap-5">
+      {
+        socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target={link.href.startsWith('http') ? '_blank' : '_self'}
+            rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

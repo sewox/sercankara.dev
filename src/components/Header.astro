@@ -1,0 +1,60 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+const currentPath = pathname.replace(/\/$/, '') || '/';
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/thoughts', label: 'Thoughts' },
+  { href: '/works', label: 'Works' },
+  { href: '/about', label: 'About' },
+];
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="w-full pt-10 pb-8 border-b border-neutral-200/60 dark:border-neutral-800/60">
+  <div class="max-w-3xl mx-auto px-6 flex items-center justify-between">
+    <!-- Brand / Identity -->
+    <a
+      href="/"
+      class="group flex items-center gap-2 text-[0.95rem] font-medium tracking-tight text-neutral-900 dark:text-neutral-100 hover:opacity-80 transition-opacity"
+    >
+      <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
+        sk
+      </span>
+      <span>sercan kara</span>
+    </a>
+
+    <!-- Navigation & Theme Switcher -->
+    <div class="flex items-center gap-6 sm:gap-8">
+      <nav class="flex items-center gap-5 sm:gap-6 text-[0.9rem]">
+        {
+          navItems.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <a
+                href={item.href}
+                class={`transition-colors py-1 ${
+                  active
+                    ? 'text-neutral-950 dark:text-neutral-50 font-medium underline underline-offset-8 decoration-neutral-300 dark:decoration-neutral-700'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })
+        }
+      </nav>
+
+      <div class="pl-2 border-l border-neutral-200 dark:border-neutral-800">
+        <ThemeToggle />
+      </div>
+    </div>
+  </div>
+</header>

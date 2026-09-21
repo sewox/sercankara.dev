@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostItem from '../../components/PostItem.astro';
+import { getAllPosts } from '../../lib/posts';
+
+const posts = await getAllPosts();
+
+// Group articles by year
+const postsByYear = posts.reduce((acc, post) => {
+  const year = post.pubDate.getFullYear().toString();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(post);
+  return acc;
+}, {} as Record<string, typeof posts>);
+
+const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<BaseLayout
+  title="Thoughts & Writing"
+  description="Technical essays, architectural reflections, and system engineering field notes by Sercan Kara."
+>
+  <header class="mb-12">
+    <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 mb-3">
+      Thoughts & Writing
+    </h1>
+    <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+      A unified archive of engineering notes, architectural post-mortems, and technical essays
+      published locally or on Medium.
+    </p>
+  </header>
+
+  <div class="space-y-12">
+    {
+      years.map((year) => (
+        <section>
+          <div class="flex items-center gap-3 mb-4 pb-2 border-b border-neutral-200/60 dark:border-neutral-800/60">
+            <span class="font-mono text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+              {year}
+            </span>
+            <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+              ({postsByYear[year].length} {postsByYear[year].length === 1 ? 'article' : 'articles'})
+            </span>
+          </div>
+
+          <div class="divide-y divide-neutral-100 dark:divide-neutral-800/40">
+            {postsByYear[year].map((post) => (
+              <PostItem post={post} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
