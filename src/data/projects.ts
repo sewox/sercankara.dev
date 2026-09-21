@@ -73,7 +73,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/sewox/echomind",
     isLive: true,
     featured: true,
-    techStack: ["Python", "TypeScript", "Vector Embeddings", "AST", "MCP", "SQLite"]
+    techStack: ["Rust", "TypeScript", "Tauri", "Vector Memory", "SQLite", "Ollama"]
   },
   {
     title: "golangGlobalDataSanitizationService",
