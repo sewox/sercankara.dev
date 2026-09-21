@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import Logo from './Logo.astro';
 
 const pathname = Astro.url.pathname;
 const currentPath = pathname.replace(/\/$/, '') || '/';
@@ -22,12 +23,10 @@ function isActive(href: string) {
     <!-- Brand / Identity -->
     <a
       href="/"
-      class="group flex items-center gap-2 text-[0.95rem] font-medium tracking-tight text-neutral-900 dark:text-neutral-100 hover:opacity-80 transition-opacity"
+      class="flex items-center gap-2.5 text-zinc-900 dark:text-zinc-100 hover:opacity-80 transition-opacity font-medium tracking-tight"
     >
-      <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
-        sk
-      </span>
-      <span>sercan kara</span>
+      <Logo className="w-6 h-6" />
+      <span>Sercan Kara</span>
     </a>
 
     <!-- Navigation & Theme Switcher -->
