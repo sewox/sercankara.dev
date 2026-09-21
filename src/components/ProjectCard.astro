@@ -7,6 +7,10 @@ interface Props {
 
 const { project } = Astro.props;
 const targetUrl = project.subdomainUrl || project.githubUrl || "#";
+
+const categoryLabel = Array.isArray(project.category)
+  ? project.category.join(' • ')
+  : project.category;
 ---
 
 <article class="group rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/30 p-5 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all flex flex-col justify-between">
@@ -25,7 +29,7 @@ const targetUrl = project.subdomainUrl || project.githubUrl || "#";
 
     <!-- Category & Status -->
     <div class="flex items-center justify-between gap-2 mb-2.5">
-      <span class="text-xs font-mono text-zinc-500 uppercase tracking-wider">{project.category}</span>
+      <span class="text-xs font-mono text-zinc-500 uppercase tracking-wider">{categoryLabel}</span>
       {project.isLive && (
         <span class="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>

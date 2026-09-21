@@ -29,7 +29,11 @@ const categories = [
   <div class="space-y-12">
     {
       categories.map((category) => {
-        const categoryProjects = projects.filter((p) => p.category === category);
+        const categoryProjects = projects.filter((p) =>
+          Array.isArray(p.category)
+            ? p.category.includes(category)
+            : p.category === category
+        );
         if (categoryProjects.length === 0) return null;
 
         return (

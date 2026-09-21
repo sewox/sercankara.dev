@@ -1,8 +1,15 @@
+export type ProjectCategory =
+  | 'Security Platform'
+  | 'Infrastructure'
+  | 'API Service'
+  | 'SaaS Platform'
+  | 'Open Source';
+
 export interface Project {
   title: string;
   tagline: string;
   description: string;
-  category: 'Security Platform' | 'Infrastructure' | 'API Service' | 'SaaS Platform' | 'Open Source';
+  category: ProjectCategory | ProjectCategory[];
   subdomainUrl?: string;
   githubUrl?: string;
   image?: string;
@@ -36,9 +43,9 @@ export const projects: Project[] = [
   },
   {
     title: "Carriertr.io",
-    tagline: "Unified logistics & carrier integration API gateway",
-    description: "High-availability multi-carrier freight management and tracking API engine, streamlining zero-downtime shipping operations and dispatching.",
-    category: "API Service",
+    tagline: "Unified logistics SaaS platform & multi-carrier integration API gateway",
+    description: "High-availability multi-carrier freight management SaaS portal and tracking API gateway, streamlining zero-downtime shipping operations and dispatching.",
+    category: ["API Service", "SaaS Platform"],
     subdomainUrl: "https://carriertr.io",
     image: "/images/projects/carriertr.webp",
     isLive: true,
