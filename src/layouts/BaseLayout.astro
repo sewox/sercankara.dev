@@ -52,13 +52,35 @@ const siteTitle = title.includes('Sercan Kara') ? title : `${title} — Sercan K
     <meta property="twitter:image" content={new URL(image, canonicalURL)} />
     <meta name="twitter:creator" content="@sercankara" />
 
-    <!-- Typography (Inter & JetBrains Mono) -->
+    <!-- Typography (Inter & JetBrains Mono) - Non-render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
     />
+    <link
+      id="gf-font-styles"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      media="print"
+    />
+    <script is:inline>
+      (() => {
+        const link = document.getElementById('gf-font-styles');
+        if (link) {
+          link.addEventListener('load', () => { link.media = 'all'; });
+          if (link.sheet) link.media = 'all';
+        }
+      })();
+    </script>
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
 
     <!-- Zero-FOUC Theme Script -->
     <script is:inline>

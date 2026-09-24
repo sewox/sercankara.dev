@@ -33,7 +33,7 @@ const formattedUpdatedDate = updatedDate
     <div class="mb-8">
       <a
         href="/thoughts"
-        class="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+        class="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
       >
         <span>&larr;</span>
         <span>Back to thoughts</span>
@@ -42,7 +42,7 @@ const formattedUpdatedDate = updatedDate
 
     <!-- Article Header -->
     <header class="mb-10 pb-8 border-b border-neutral-200/70 dark:border-neutral-800/70">
-      <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-400 dark:text-neutral-500 mb-3">
+      <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-600 dark:text-neutral-400 mb-3">
         <time datetime={pubDate.toISOString()}>{formattedDate}</time>
         {formattedUpdatedDate && <span>(Updated: {formattedUpdatedDate})</span>}
         {readingTime && <span>&bull;</span> <span>{readingTime}</span>}
@@ -79,7 +79,7 @@ const formattedUpdatedDate = updatedDate
     </div>
 
     <!-- Article Footer / Navigation -->
-    <footer class="mt-14 pt-8 border-t border-neutral-200/70 dark:border-neutral-800/70 flex justify-between items-center text-xs font-mono text-neutral-500 dark:text-neutral-400">
+    <footer class="mt-14 pt-8 border-t border-neutral-200/70 dark:border-neutral-800/70 flex justify-between items-center text-xs font-mono text-neutral-600 dark:text-neutral-400">
       <a href="/thoughts" class="hover:underline">
         &larr; All articles
       </a>

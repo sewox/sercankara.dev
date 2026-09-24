@@ -28,7 +28,7 @@ const formattedDate = new Intl.DateTimeFormat('en-GB', {
         <span>{post.title}</span>
         {
           post.isExternal && (
-            <span class="inline-block text-neutral-400 dark:text-neutral-500 font-normal text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <span class="inline-block text-neutral-600 dark:text-neutral-400 font-normal text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
               ↗
             </span>
           )
@@ -36,10 +36,10 @@ const formattedDate = new Intl.DateTimeFormat('en-GB', {
       </h3>
 
       <!-- Date & Source Meta -->
-      <div class="flex items-center gap-2 text-xs font-mono text-neutral-400 dark:text-neutral-500 shrink-0">
+      <div class="flex items-center gap-2 text-xs font-mono text-neutral-600 dark:text-neutral-400 shrink-0">
         {
           post.isExternal && (
-            <span class="px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">
+            <span class="px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider bg-neutral-200/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">
               Medium
             </span>
           )
@@ -51,20 +51,20 @@ const formattedDate = new Intl.DateTimeFormat('en-GB', {
     <!-- Snippet / Description -->
     {
       post.description && (
-        <p class="mt-1.5 text-xs sm:text-[0.875rem] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed font-normal">
+        <p class="mt-1.5 text-xs sm:text-[0.875rem] text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed font-normal">
           {post.description}
         </p>
       )
     }
 
     <!-- Tags / Reading Time -->
-    <div class="mt-2 flex items-center gap-3 text-[11px] font-mono text-neutral-400 dark:text-neutral-500">
+    <div class="mt-2 flex items-center gap-3 text-[11px] font-mono text-neutral-600 dark:text-neutral-400">
       {post.readingTime && <span>{post.readingTime}</span>}
       {
         post.tags && post.tags.length > 0 && (
           <div class="flex items-center gap-1.5">
             {post.tags.slice(0, 3).map((tag) => (
-              <span class="text-neutral-400 dark:text-neutral-600">#{tag.toLowerCase()}</span>
+              <span class="text-neutral-600 dark:text-neutral-400">#{tag.toLowerCase()}</span>
             ))}
           </div>
         )
