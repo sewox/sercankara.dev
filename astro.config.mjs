@@ -5,6 +5,9 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://sercankara.dev',
   output: 'static',
+  build: {
+    inlineStylesheets: 'always',
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
